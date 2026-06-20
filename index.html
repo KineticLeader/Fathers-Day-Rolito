@@ -6,7 +6,7 @@
     <title>Dad: The Ultimate Presentation</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght=400;700&family=Azeret+Mono:wght=400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Azeret+Mono:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
@@ -94,7 +94,7 @@
             text-align: center;
         }
         .title-layout h1 {
-            font-size: 60px;
+            font-size: 54px;
             color: #ffffff;
             margin-bottom: 15px;
             text-shadow: 0 0 25px rgba(6, 182, 212, 0.8), 0 0 50px rgba(6, 182, 212, 0.4);
@@ -106,8 +106,46 @@
             font-size: 16px;
             letter-spacing: 6px;
             text-transform: uppercase;
-            margin-bottom: 40px;
+            margin-bottom: 20px;
             text-shadow: 0 0 8px rgba(34, 211, 238, 0.5);
+        }
+
+        /* Terminal Bootup Display */
+        .boot-terminal {
+            background-color: rgba(2, 6, 23, 0.9);
+            border: 1px solid #0891b2;
+            border-radius: 12px;
+            max-width: 650px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 20px;
+            font-family: 'Azeret Mono', monospace;
+            font-size: 13px;
+            color: #38bdf8;
+            text-align: left;
+            box-shadow: inset 0 0 20px rgba(6, 182, 212, 0.2);
+            min-height: 180px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .boot-line {
+            opacity: 0;
+            transform: translateX(-5px);
+            transition: all 0.2s ease;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .boot-line.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .boot-success {
+            color: #4ade80;
+            font-weight: bold;
         }
 
         /* Galactic UI Buttons */
@@ -126,6 +164,7 @@
             gap: 10px;
             font-family: 'Orbitron', sans-serif;
             box-shadow: 0 0 15px rgba(34, 211, 238, 0.2);
+            margin-top: 20px;
         }
         .btn:hover {
             background-color: #22d3ee;
@@ -466,13 +505,15 @@
 
         <div class="slide active" id="slide-1">
             <div class="title-layout">
-                <p class="tagline">System.Launch: Father's Day Special</p>
+                <p class="tagline">System.Init: Father's Day Core</p>
                 <h1>Why My Dad is the Best</h1>
-                <p style="color: #94a3b8; max-width: 600px; margin: 0 auto 40px auto; font-size: 16px; line-height: 1.6; font-family: sans-serif;">
-                    An official presentation analyzing the metrics, letters, and memories that prove you hold the number one spot in the cosmos.
-                </p>
-                <button class="btn" onclick="initializePresentationAndAudio()">
-                    Open Main Menu <i class="fa-solid fa-arrow-right"></i>
+                
+                <div class="boot-terminal" id="terminal-screen">
+                    <div class="boot-line" id="line-0"><span>&gt; SYSTEM STATUS: READY FOR ENGAGEMENT</span></div>
+                </div>
+
+                <button class="btn" id="action-terminal-btn" onclick="triggerSystemWarmup()">
+                    <i class="fa-solid fa-terminal"></i> RUN SYSTEM DIAGNOSTIC
                 </button>
             </div>
         </div>
@@ -517,7 +558,7 @@
                         <i class="fa-solid fa-code-branch" style="color: #22d3ee; margin-right: 6px;"></i>
                         <strong>Project Lead:</strong> Liam (Main Lead)<br>
                         <strong>Development Team:</strong> DevCon2026, XgameXX<br>
-                        <strong>In Honor of:</strong> The Ultimate Dad
+                        <strong>Dedicated To:</strong> The Ultimate Dad
                     </div>
                     
                     <div class="rent-free-box">
@@ -647,19 +688,55 @@
 
     <script>
         // -----------------------------------------------------
-        // 1. AUDIO MANAGEMENT CONTROLLER MATRIX
+        // 1. AUDIO MANAGEMENT CONTROLLER MATRIX & BOOT SCREEN
         // -----------------------------------------------------
         const audioNode = document.getElementById('bg-audio');
         const audioBtnIcon = document.getElementById('audio-control-btn').querySelector('i');
+        const terminalScreen = document.getElementById('terminal-screen');
+        const actionBtn = document.getElementById('action-terminal-btn');
 
-        function initializePresentationAndAudio() {
-            // Trigger background audio track immediately on interaction handshake
+        // Text matrix lines to display during warming boot sequence
+        const bootSequenceData = [
+            { text: "> Loading Fatherhood Analytics Engine...", delay: 400 },
+            { text: "> Mounting memory paths: /Assets/Dad_Memories/ ...", delay: 800 },
+            { text: "> Verifying patience counters...", status: "SUCCESS (100%)", delay: 1300 },
+            { text: "> Syncing humor systems...", status: "ONLINE", delay: 1700 },
+            { text: "> Allocation optimization complete. Interface unlocked.", delay: 2200 }
+        ];
+
+        function triggerSystemWarmup() {
+            // Hide trigger button immediately so user can't double-click it
+            actionBtn.style.display = 'none';
+
+            // Safe interaction handshake to wake up media elements
             audioNode.play().then(() => {
                 audioBtnIcon.className = "fa-solid fa-volume-high";
             }).catch(err => {
-                console.log("Audio waiting for implicit click handshake confirmation overrides.");
+                console.log("Audio pipeline awaiting layout override confirmation.");
             });
-            goToSlide(2);
+
+            // Loop and render terminal text entries onto screens dynamically
+            bootSequenceData.forEach((line, index) => {
+                setTimeout(() => {
+                    const lineDiv = document.createElement('div');
+                    lineDiv.className = "boot-line visible";
+                    
+                    let statusSpan = line.status ? `<span class="boot-success">${line.status}</span>` : '';
+                    lineDiv.innerHTML = `<span>${line.text}</span> ${statusSpan}`;
+                    
+                    terminalScreen.appendChild(lineDiv);
+                    
+                    // Auto scroll internal container context down
+                    terminalScreen.scrollTop = terminalScreen.scrollHeight;
+
+                    // When last item draws completely, move user inside workspace
+                    if (index === bootSequenceData.length - 1) {
+                        setTimeout(() => {
+                            goToSlide(2);
+                        }, 800);
+                    }
+                }, line.delay);
+            });
         }
 
         function toggleAudioStream() {

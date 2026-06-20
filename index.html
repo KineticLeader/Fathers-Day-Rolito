@@ -3,359 +3,817 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Why My Dad is the Best!</title>
+    <title>Dad: The Ultimate Presentation</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght=400;700&family=Azeret+Mono:wght=400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
     <style>
         * {
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             padding: 0;
         }
 
         body {
-            background: linear-gradient(135deg, #ff758c 0%, #ff7eb3 100%);
+            background-color: #020617;
+            color: #f1f5f9;
+            font-family: 'Orbitron', sans-serif;
             min-height: 100vh;
-            color: #333;
-            overflow-x: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            overflow: hidden;
             position: relative;
         }
 
-        .circle {
+        /* 3D WebGL Canvas Layer */
+        #canvas-container {
             position: absolute;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.2);
-            animation: float 8s infinite ease-in-out;
-            z-index: 0;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(180deg); }
-        }
-
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 40px 20px;
-            position: relative;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             z-index: 1;
+            pointer-events: none;
+        }
+
+        /* Presentation Workspace Canvas with Cyberpunk Aesthetics */
+        .presentation-frame {
+            width: 1100px;
+            height: 650px;
+            background-color: rgba(15, 23, 42, 0.75);
+            border-radius: 24px;
+            box-shadow: 0 0 40px rgba(6, 182, 212, 0.25);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            position: relative;
+            border: 2px solid #06b6d4;
+            backdrop-filter: blur(12px);
+            z-index: 2;
+        }
+
+        /* Universal Slide Layout Wrapper */
+        .slide {
+            display: none;
+            flex: 1;
+            padding: 40px 50px;
+            flex-direction: column;
+            justify-content: center;
+            animation: fadeIn 0.4s ease-in-out;
+        }
+
+        .slide.active {
+            display: flex;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.98) translateY(10px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        /* Sci-Fi Slide Titles */
+        .slide-header {
+            font-size: 36px;
+            font-weight: 700;
+            color: #22d3ee;
+            margin-bottom: 25px;
+            border-bottom: 2px dashed #0891b2;
+            padding-bottom: 10px;
+            text-shadow: 0 0 15px rgba(34, 211, 238, 0.6);
+            letter-spacing: 2px;
+        }
+
+        /* --- SLIDE 1: HOME TITLE --- */
+        .title-layout {
             text-align: center;
         }
-
-        h1 {
-            color: white;
-            font-size: 3.5rem;
-            text-shadow: 3px 3px 0px #ff3366;
-            margin-bottom: 10px;
-            animation: bounce 2s infinite;
-        }
-
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-
-        .subtitle {
-            color: #fff;
-            font-size: 1.3rem;
-            margin-bottom: 40px;
-            font-weight: bold;
-            background: rgba(0, 0, 0, 0.1);
-            display: inline-block;
-            padding: 8px 20px;
-            border-radius: 20px;
-        }
-
-        /* Interactive Letters/Cards Section */
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 25px;
-            margin-bottom: 50px;
-        }
-
-        .card {
-            background: white;
-            border-radius: 20px;
-            padding: 30px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            position: relative;
-            overflow: hidden;
-            border: 4px solid transparent;
-        }
-
-        .card:hover {
-            transform: scale(1.05) translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.25);
-        }
-
-        .card-1 { border-color: #ffda79; }
-        .card-2 { border-color: #ffabe7; }
-        .card-3 { border-color: #82ccdd; }
-
-        .card-icon {
-            font-size: 3rem;
+        .title-layout h1 {
+            font-size: 60px;
+            color: #ffffff;
             margin-bottom: 15px;
+            text-shadow: 0 0 25px rgba(6, 182, 212, 0.8), 0 0 50px rgba(6, 182, 212, 0.4);
+            letter-spacing: 4px;
         }
-
-        .card h3 {
-            font-size: 1.5rem;
-            color: #2c3e50;
-            margin-bottom: 10px;
-        }
-
-        .card p {
-            font-size: 1.1rem;
-            color: #666;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.4s ease;
-        }
-
-        .card.revealed p {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .card.revealed .click-prompt {
-            display: none;
-        }
-
-        .click-prompt {
-            font-size: 0.9rem;
-            color: #aaa;
+        .tagline {
+            font-family: 'Azeret Mono', monospace;
+            color: #22d3ee;
+            font-size: 16px;
+            letter-spacing: 6px;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-top: 15px;
-            animation: pulse 1.5s infinite;
+            margin-bottom: 40px;
+            text-shadow: 0 0 8px rgba(34, 211, 238, 0.5);
         }
 
-        @keyframes pulse {
-            0%, 100% { opacity: 0.6; }
-            50% { opacity: 1; }
+        /* Galactic UI Buttons */
+        .btn {
+            background-color: transparent;
+            color: #22d3ee;
+            border: 2px solid #22d3ee;
+            padding: 14px 32px;
+            font-size: 18px;
+            font-weight: 700;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-family: 'Orbitron', sans-serif;
+            box-shadow: 0 0 15px rgba(34, 211, 238, 0.2);
+        }
+        .btn:hover {
+            background-color: #22d3ee;
+            color: #0f172a;
+            box-shadow: 0 0 25px rgba(34, 211, 238, 0.6);
+            transform: translateY(-2px);
         }
 
-        /* --- STYLIZED PHOTO GALLERY SECTION --- */
-        .gallery-box {
-            background: rgba(255, 255, 255, 0.95);
-            padding: 30px;
-            border-radius: 20px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-            margin-bottom: 50px;
+        /* --- SLIDE 2: MAIN MENU DASHBOARD --- */
+        .menu-layout {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
         }
-
-        .gallery-box h2 {
-            color: #2c3e50;
-            margin-bottom: 20px;
-            font-size: 1.8rem;
-        }
-
-        .image-gallery {
+        .menu-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            width: 100%;
         }
-
-        /* CSS-Based Image Frame Placeholders */
-        .image-frame {
-            background: #f5f6fa;
-            border: 3px dashed #ff758c;
-            border-radius: 15px;
-            height: 200px;
+        .menu-card {
+            background-color: rgba(30, 41, 59, 0.4);
+            border: 2px solid #0891b2;
+            border-radius: 16px;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: left;
+        }
+        .menu-card:hover {
+            border-color: #22d3ee;
+            background-color: rgba(34, 211, 238, 0.15);
+            box-shadow: 0 0 20px rgba(34, 211, 238, 0.3);
+            transform: scale(1.02);
+        }
+        .menu-icon {
+            font-size: 28px;
+            color: #22d3ee;
+            background: rgba(6, 182, 212, 0.15);
+            padding: 12px;
+            border-radius: 12px;
+            width: 50px;
+            height: 50px;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-            transition: transform 0.3s ease, border-color 0.3s ease, background-color 0.3s ease;
-            cursor: pointer;
+            border: 1px solid #0891b2;
+        }
+        .menu-info h3 {
+            font-size: 18px;
+            margin-bottom: 2px;
+            color: #fff;
+            letter-spacing: 1px;
+        }
+        .menu-info p {
+            font-size: 13px;
+            color: #94a3b8;
+            font-family: sans-serif;
         }
 
-        .image-frame span {
-            font-family: 'Courier New', Courier, monospace;
-            font-weight: bold;
-            color: #a4b0be;
-            font-size: 1.1rem;
+        /* --- CREDITS BOARDS --- */
+        .credits-container {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 15px;
+            margin-top: 5px;
         }
-
-        .image-frame:hover {
-            transform: scale(1.04);
-            border-color: #ff4757;
-            background-color: #f1f2f6;
-        }
-
-        .image-frame:hover span {
-            color: #ff4757;
-        }
-
-        /* Search Section */
-        .search-box {
-            background: rgba(255, 255, 255, 0.95);
-            padding: 30px;
-            border-radius: 20px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .search-box h2 {
-            color: #333;
-            margin-bottom: 15px;
-            font-size: 1.6rem;
-        }
-
-        .search-container {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-
-        input[type="text"] {
-            flex: 1;
+        .credits-box {
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid #0891b2;
+            border-radius: 12px;
             padding: 12px 20px;
-            border: 2px solid #ddd;
-            border-radius: 10px;
-            font-size: 1rem;
-            outline: none;
-            transition: border-color 0.3s;
-        }
-
-        input[type="text"]:focus {
-            border-color: #ff758c;
-        }
-
-        button {
-            background: #ff758c;
-            color: white;
-            border: none;
-            padding: 12px 25px;
-            border-radius: 10px;
-            font-size: 1rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-
-        button:hover {
-            background: #ff4757;
-        }
-
-        .results-container {
-            text-align: left;
-            background: #f9f9f9;
-            border-radius: 10px;
-            padding: 15px;
-            min-height: 50px;
-            border-left: 5px solid #ff758c;
-            display: none;
-        }
-
-        .results-container p {
-            font-size: 1.1rem;
-            color: #444;
+            font-size: 13px;
+            color: #e2e8f0;
             line-height: 1.5;
+        }
+        .credits-box strong {
+            color: #22d3ee;
+        }
+        .rent-free-box {
+            background: rgba(15, 23, 42, 0.4);
+            border: 1px dashed #0891b2;
+            border-radius: 12px;
+            padding: 12px 15px;
+            font-family: 'Azeret Mono', monospace;
+            font-size: 11px;
+            color: #a5f3fc;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        /* --- SLIDE 3: INTERACTIVE LETTERS --- */
+        .letter-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+        .letter-box {
+            background-color: rgba(15, 23, 42, 0.6);
+            border: 1px solid #0891b2;
+            border-radius: 16px;
+            padding: 30px;
+            text-align: center;
+            cursor: pointer;
+            position: relative;
+            min-height: 250px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+        .letter-box i {
+            font-size: 40px;
+            color: #22d3ee;
+            margin-bottom: 15px;
+        }
+        .letter-box h4 {
+            font-size: 18px;
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+        }
+        .letter-box p {
+            font-size: 14px;
+            color: #cbd5e1;
+            line-height: 1.5;
+            display: none;
+            font-family: sans-serif;
+        }
+        .letter-box.open {
+            background-color: #22d3ee;
+            color: #0f172a;
+            border-color: #22d3ee;
+            transform: translateY(-5px);
+            box-shadow: 0 0 25px rgba(34, 211, 238, 0.5);
+        }
+        .letter-box.open i, .letter-box.open h4, .letter-box.open p {
+            color: #0f172a;
+            font-weight: bold;
+        }
+        .letter-box.open p { display: block; }
+        .letter-box.open .prompt { display: none; }
+        .prompt {
+            font-size: 12px;
+            font-family: 'Azeret Mono', monospace;
+            color: #64748b;
+            margin-top: 15px;
+        }
+
+        /* --- SLIDE 4: PHOTO GALLERY GRID --- */
+        .gallery-scroll-container {
+            overflow-y: auto;
+            flex: 1;
+            padding-right: 10px;
+        }
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+        }
+        .gallery-item {
+            background-color: #0f172a;
+            border: 2px solid #0891b2;
+            border-radius: 12px;
+            overflow: hidden;
+            height: 180px;
+            position: relative;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+            transition: all 0.2s ease;
+        }
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .gallery-item:hover {
+            transform: scale(1.03);
+            border-color: #22d3ee;
+            box-shadow: 0 0 20px rgba(34, 211, 238, 0.4);
+        }
+        .img-caption {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            background: rgba(15, 23, 42, 0.85);
+            padding: 6px;
+            font-size: 12px;
+            text-align: center;
+            font-family: 'Azeret Mono', monospace;
+            color: #22d3ee;
+            border-top: 1px solid #0891b2;
+        }
+
+        /* --- SLIDE 5: METRICS / STATS --- */
+        .stats-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .stat-bar-group {
+            display: flex;
+            align-items: center;
+        }
+        .stat-label {
+            width: 250px;
+            font-size: 16px;
+            font-weight: bold;
+            color: #e2e8f0;
+            letter-spacing: 1px;
+        }
+        .stat-track {
+            flex: 1;
+            background-color: rgba(15, 23, 42, 0.6);
+            height: 30px;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid #0891b2;
+        }
+        .stat-fill {
+            background: linear-gradient(90deg, #0891b2, #22d3ee);
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 15px;
+            font-size: 14px;
+            font-weight: bold;
+            color: #0f172a;
+            box-shadow: 0 0 15px rgba(34, 211, 238, 0.6);
+        }
+
+        /* --- SLIDE 6: CONCLUSION AND SIGN OFF --- */
+        .final-verdict-title {
+            color: #ffffff; 
+            font-size: 56px; 
+            margin-bottom: 20px;
+            text-shadow: 0 0 20px rgba(6, 182, 212, 0.8);
+        }
+
+        /* --- CYBER AUDIO CONTROL MODULE PANEL --- */
+        .audio-terminal-control {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid #0891b2;
+            padding: 6px 14px;
+            border-radius: 10px;
+            font-family: 'Azeret Mono', monospace;
+            font-size: 11px;
+            color: #22d3ee;
+            max-width: 280px;
+        }
+        .audio-toggle-node {
+            cursor: pointer;
+            font-size: 14px;
+            color: #22d3ee;
+            transition: all 0.2s ease;
+            background: none;
+            border: none;
+        }
+        .audio-toggle-node:hover {
+            text-shadow: 0 0 8px #22d3ee;
+            transform: scale(1.1);
+        }
+        .track-ticker {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 180px;
+        }
+
+        /* --- GLOBAL NAVIGATION FOOTER CONTROLS --- */
+        .presentation-controls {
+            background-color: rgba(15, 23, 42, 0.9);
+            border-top: 2px solid #0891b2;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 10;
+        }
+        .nav-btn-container {
+            display: flex;
+            gap: 15px;
+        }
+        .control-btn {
+            background-color: #1e293b;
+            color: #94a3b8;
+            border: 1px solid #0891b2;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 700;
+            transition: all 0.2s ease;
+            font-family: 'Orbitron', sans-serif;
+        }
+        .control-btn:hover:not(:disabled) {
+            background-color: rgba(6, 182, 212, 0.2);
+            color: #fff;
+            border-color: #22d3ee;
+            box-shadow: 0 0 10px rgba(34, 211, 238, 0.3);
+        }
+        .control-btn:disabled {
+            opacity: 0.2;
+            cursor: not-allowed;
+            border-color: #334155;
+        }
+        .home-btn {
+            background-color: transparent;
+            color: #22d3ee;
+            border: 1px solid #22d3ee;
+        }
+        .home-btn:hover {
+            background-color: rgba(34, 211, 238, 0.15);
+        }
+        .slide-counter {
+            font-family: 'Azeret Mono', monospace;
+            font-size: 14px;
+            color: #22d3ee;
+            text-shadow: 0 0 5px rgba(34, 211, 238, 0.4);
         }
     </style>
 </head>
 <body>
 
-    <div class="circle" style="width: 80px; height: 80px; top: 10%; left: 5%;"></div>
-    <div class="circle" style="width: 120px; height: 120px; top: 60%; left: 85%; animation-delay: 2s;"></div>
-    <div class="circle" style="width: 60px; height: 60px; top: 80%; left: 10%; animation-delay: 4s;"></div>
+    <audio id="bg-audio" src="Assets/Stuck On You.mp3" loop></audio>
 
-    <div class="container">
-        <h1>Happy Father's Day!</h1>
-        <p class="subtitle">Click the cards below to see why you are the best!</p>
+    <div id="canvas-container"></div>
 
-        <!-- Interactive Grid -->
-        <div class="grid">
-            <div class="card card-1" onclick="revealCard(this)">
-                <div class="card-icon">👑</div>
-                <h3>The Smartest Guide</h3>
-                <p>You always know exactly how to fix things, solve tough puzzles, and give the absolute best advice when I'm stuck!</p>
-                <div class="click-prompt">Click to open letter</div>
-            </div>
+    <div class="presentation-frame">
 
-            <div class="card card-2" onclick="revealCard(this)">
-                <div class="card-icon">🎮</div>
-                <h3>Super Supporter</h3>
-                <p>Whether we are playing games, working on cool projects, or just hanging out, you always make everything 10x more fun.</p>
-                <div class="click-prompt">Click to open letter</div>
-            </div>
-
-            <div class="card card-3" onclick="revealCard(this)">
-                <div class="card-icon">❤️</div>
-                <h3>My Hero</h3>
-                <p>Thank you for always being patient, helping me learn awesome new things, and being someone I can completely look up to!</p>
-                <div class="click-prompt">Click to open letter</div>
+        <div class="slide active" id="slide-1">
+            <div class="title-layout">
+                <p class="tagline">System.Launch: Father's Day Special</p>
+                <h1>Why My Dad is the Best</h1>
+                <p style="color: #94a3b8; max-width: 600px; margin: 0 auto 40px auto; font-size: 16px; line-height: 1.6; font-family: sans-serif;">
+                    An official presentation analyzing the metrics, letters, and memories that prove you hold the number one spot in the cosmos.
+                </p>
+                <button class="btn" onclick="initializePresentationAndAudio()">
+                    Open Main Menu <i class="fa-solid fa-arrow-right"></i>
+                </button>
             </div>
         </div>
 
-        <!-- Photo Gallery Container with Text Placeholders -->
-        <div class="gallery-box">
-            <h2>📸 Dad's Awesome Gallery</h2>
-            <div class="image-gallery">
-                <div class="image-frame">
-                    <span>Placeholder.png</span>
+        <div class="slide" id="slide-2">
+            <h2 class="slide-header">// Main Presentation Terminal</h2>
+            <div class="menu-layout">
+                <p style="color: #94a3b8; font-size: 14px; font-family: sans-serif;">Select an asset module below to review details:</p>
+                <div class="menu-grid">
+                    <div class="menu-card" onclick="goToSlide(3)">
+                        <div class="menu-icon"><i class="fa-solid fa-envelope-open-text"></i></div>
+                        <div class="menu-info">
+                            <h3>Interactive Letters</h3>
+                            <p>Open individual notes from the family heart.</p>
+                        </div>
+                    </div>
+                    <div class="menu-card" onclick="goToSlide(4)">
+                        <div class="menu-icon"><i class="fa-solid fa-images"></i></div>
+                        <div class="menu-info">
+                            <h3>Memory Vault</h3>
+                            <p>View the curated Dad picture assets.</p>
+                        </div>
+                    </div>
+                    <div class="menu-card" onclick="goToSlide(5)">
+                        <div class="menu-icon"><i class="fa-solid fa-chart-bar"></i></div>
+                        <div class="menu-info">
+                            <h3>Performance Metrics</h3>
+                            <p>Statistical breakdown of fatherhood data scores.</p>
+                        </div>
+                    </div>
+                    <div class="menu-card" onclick="goToSlide(6)">
+                        <div class="menu-icon"><i class="fa-solid fa-award"></i></div>
+                        <div class="menu-info">
+                            <h3>Final Verdict</h3>
+                            <p>Official conclusions and celebration sign-off.</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="image-frame">
-                    <span>Placeholder.png</span>
-                </div>
-                <div class="image-frame">
-                    <span>Placeholder.png</span>
+
+                <div class="credits-container">
+                    <div class="credits-box">
+                        <i class="fa-solid fa-code-branch" style="color: #22d3ee; margin-right: 6px;"></i>
+                        <strong>Project Lead:</strong> Liam (Main Lead)<br>
+                        <strong>Development Team:</strong> DevCon2026, XgameXX<br>
+                        <strong>In Honor of:</strong> The Ultimate Dad
+                    </div>
+                    
+                    <div class="rent-free-box">
+                        <div><i class="fa-solid fa-folder-open" style="color: #22d3ee; margin-right: 4px;"></i> <code>Assets/Fileholder.md</code></div>
+                        <div><i class="fa-solid fa-file-code" style="color: #a855f7; margin-right: 4px;"></i> <code>Assets/Dad3.json</code> (for Dad3.jpeg)</div>
+                        <div style="color: #64748b; font-size: 10px; margin-top: 2px; font-style: italic;">* Assets staying in memory completely rent-free! *</div>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- Search Feature -->
-        <div class="search-box">
-            <h2>🔍 Fact Checker</h2>
-            <p style="color: #666; margin-bottom: 15px; font-size: 0.95rem;">Search anything to see what the database says about Dad!</p>
-            <div class="search-container">
-                <input type="text" id="searchInput" placeholder="Try searching 'is dad cool' or 'best coder'...">
-                <button onclick="searchDatabase()">Search</button>
-            </div>
-            <div class="results-container" id="resultsBox">
-                <p id="searchResult"></p>
+        <div class="slide" id="slide-3">
+            <h2 class="slide-header">// Comm-Link Intercepts</h2>
+            <div class="letter-grid">
+                <div class="letter-box" onclick="toggleLetter(this)">
+                    <i class="fa-solid fa-envelope"></i>
+                    <h4>The Fixer Note</h4>
+                    <p>Thank you for always being able to debug code, fix hardware, and solve impossible challenges flawlessly.</p>
+                    <div class="prompt">[Click to Open]</div>
+                </div>
+                <div class="letter-box" onclick="toggleLetter(this)">
+                    <i class="fa-solid fa-envelope"></i>
+                    <h4>The Gaming Note</h4>
+                    <p>Whether we are sharing strategies, building things, or testing new ideas, you make every project ten times cleaner.</p>
+                    <div class="prompt">[Click to Open]</div>
+                </div>
+                <div class="letter-box" onclick="toggleLetter(this)">
+                    <i class="fa-solid fa-envelope"></i>
+                    <h4>The Anchor Note</h4>
+                    <p>Thank you for giving the absolute clearest direction and being an awesome baseline presence every single day.</p>
+                    <div class="prompt">[Click to Open]</div>
+                </div>
             </div>
         </div>
+
+        <div class="slide" id="slide-4">
+            <h2 class="slide-header">// Visual Imagery Matrix</h2>
+            <div class="gallery-scroll-container">
+                <div class="gallery-grid">
+                    <div class="gallery-item">
+                        <img src="Assets/Dad1.jpeg" alt="Dad Image 1">
+                        <div class="img-caption">Dad1.jpeg</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="Assets/Dad2.jpeg" alt="Dad Image 2">
+                        <div class="img-caption">Dad2.jpeg</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="Assets/Dad4.jpeg" alt="Dad Image 4">
+                        <div class="img-caption">Dad4.jpeg</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="Assets/Dad5.jpeg" alt="Dad Image 5">
+                        <div class="img-caption">Dad5.jpeg</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="Assets/Dad6.jpeg" alt="Dad Image 6">
+                        <div class="img-caption">Dad6.jpeg</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="Assets/Dad7.jpeg" alt="Dad Image 7">
+                        <div class="img-caption">Dad7.jpeg</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="Assets/Dad8.jpeg" alt="Dad Image 8">
+                        <div class="img-caption">Dad8.jpeg</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide" id="slide-5">
+            <h2 class="slide-header">// Statistical Performance Metrics</h2>
+            <div class="stats-container">
+                <div class="stat-bar-group">
+                    <div class="stat-label">Patience & Support</div>
+                    <div class="stat-track"><div class="stat-fill" style="width: 100%;">100%</div></div>
+                </div>
+                <div class="stat-bar-group">
+                    <div class="stat-label">Tech & Problem Solving</div>
+                    <div class="stat-track"><div class="stat-fill" style="width: 98%;">98%</div></div>
+                </div>
+                <div class="stat-bar-group">
+                    <div class="stat-label">Project Collaboration</div>
+                    <div class="stat-track"><div class="stat-fill" style="width: 100%;">100%</div></div>
+                </div>
+                <div class="stat-bar-group">
+                    <div class="stat-label">Humor/Dad Jokes Rating</div>
+                    <div class="stat-track"><div class="stat-fill" style="width: 95%;">95%</div></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide" id="slide-6">
+            <div class="title-layout">
+                <h2 style="font-size: 38px; color: #22d3ee; margin-bottom: 20px; letter-spacing: 2px;">// System Verdict Finalized</h2>
+                <p style="font-size: 22px; max-width: 700px; margin: 0 auto 30px auto; line-height: 1.6; color: #cbd5e1; font-family: sans-serif;">
+                    "Any person can be a father, but it takes someone truly elite to be a Dad."
+                </p>
+                <h1 class="final-verdict-title">Happy Father's Day!</h1>
+                <div style="color: #22d3ee; font-size: 36px; text-shadow: 0 0 15px rgba(34, 211, 238, 0.8);">
+                    <i class="fa-solid fa-space-shuttle"></i>
+                    <i class="fa-solid fa-atom"></i>
+                    <i class="fa-solid fa-code"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="presentation-controls">
+            
+            <div class="audio-terminal-control">
+                <button class="audio-toggle-node" id="audio-control-btn" onclick="toggleAudioStream()">
+                    <i class="fa-solid fa-volume-xmark"></i>
+                </button>
+                <div class="track-ticker">AUDIO: Stuck On You.mp3</div>
+            </div>
+
+            <div class="slide-counter">TRACKING NODE // 0<span id="current-slide-num">1</span></div>
+            <div class="nav-btn-container">
+                <button class="control-btn" onclick="goToSlide(2)"><i class="fa-solid fa-terminal"></i> MENU</button>
+                <button class="control-btn" id="prev-btn" onclick="moveSlide(-1)"><i class="fa-solid fa-angle-left"></i> BACK</button>
+                <button class="control-btn" id="next-btn" onclick="moveSlide(1)">NEXT <i class="fa-solid fa-angle-right"></i></button>
+            </div>
+        </div>
+
     </div>
 
     <script>
-        function revealCard(element) {
-            element.classList.toggle('revealed');
+        // -----------------------------------------------------
+        // 1. AUDIO MANAGEMENT CONTROLLER MATRIX
+        // -----------------------------------------------------
+        const audioNode = document.getElementById('bg-audio');
+        const audioBtnIcon = document.getElementById('audio-control-btn').querySelector('i');
+
+        function initializePresentationAndAudio() {
+            // Trigger background audio track immediately on interaction handshake
+            audioNode.play().then(() => {
+                audioBtnIcon.className = "fa-solid fa-volume-high";
+            }).catch(err => {
+                console.log("Audio waiting for implicit click handshake confirmation overrides.");
+            });
+            goToSlide(2);
         }
 
-        // Custom local search logic
-        function searchDatabase() {
-            const query = document.getElementById('searchInput').value.toLowerCase().trim();
-            const resultsBox = document.getElementById('resultsBox');
-            const resultText = document.getElementById('searchResult');
-            
-            resultsBox.style.display = "block";
-
-            if (query === "") {
-                resultText.innerHTML = "⚠️ Please type something to search!";
-                return;
-            }
-
-            if (query.includes('cool') || query.includes('awesome')) {
-                resultText.innerHTML = "<strong>Result found:</strong> 100% Confirmed. Dad ranks higher on the coolness scale than anyone else on Earth.";
-            } else if (query.includes('best') || query.includes('number one')) {
-                resultText.innerHTML = "<strong>Result found:</strong> Database records show Dad holds the official #1 spot for 'World's Best Dad'. No competition found.";
-            } else if (query.includes('coder') || query.includes('smart') || query.includes('fix')) {
-                resultText.innerHTML = "<strong>Result found:</strong> High intelligence detected. Dad possesses legendary troubleshooting abilities and massive brain power.";
+        function toggleAudioStream() {
+            if (audioNode.paused) {
+                audioNode.play();
+                audioBtnIcon.className = "fa-solid fa-volume-high";
             } else {
-                resultText.innerHTML = `<strong>Result for "${document.getElementById('searchInput').value}":</strong> Verified! This completely proves once again that Dad is incredibly awesome and loved very much.`;
+                audioNode.pause();
+                audioBtnIcon.className = "fa-solid fa-volume-xmark";
             }
         }
 
-        document.getElementById('searchInput').addEventListener('keypress', function (e) {
-            if (e.key === 'Enter') {
-                searchDatabase();
-            }
+        // -----------------------------------------------------
+        // 2. THREE.JS GALACTIC SCENE SETUP
+        // -----------------------------------------------------
+        const container = document.getElementById('canvas-container');
+        const scene = new THREE.Scene();
+        
+        const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+        camera.position.z = 40;
+
+        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(window.devicePixelRatio);
+        container.appendChild(renderer.domElement);
+
+        const spaceGroup = new THREE.Group();
+        scene.add(spaceGroup);
+
+        // Particle Starfield Generation Engine
+        const starsCount = 1200;
+        const starGeometry = new THREE.BufferGeometry();
+        const starPositions = new Float32Array(starsCount * 3);
+        const starColors = new Float32Array(starsCount * 3);
+
+        for (let i = 0; i < starsCount * 3; i += 3) {
+            starPositions[i] = (Math.random() - 0.5) * 200;
+            starPositions[i + 1] = (Math.random() - 0.5) * 200;
+            starPositions[i + 2] = (Math.random() - 0.5) * 150;
+
+            starColors[i] = 0.1; 
+            starColors[i + 1] = Math.random() * 0.6 + 0.4; 
+            starColors[i + 2] = 1.0; 
+        }
+
+        starGeometry.setAttribute('position', new THREE.BufferAttribute(starPositions, 3));
+        starGeometry.setAttribute('color', new THREE.BufferAttribute(starColors, 3));
+
+        const starMaterial = new THREE.PointsMaterial({
+            size: 0.7,
+            vertexColors: true,
+            transparent: true,
+            opacity: 0.8,
+            blending: THREE.AdditiveBlending
         });
+
+        const starField = new THREE.Points(starGeometry, starMaterial);
+        spaceGroup.add(starField);
+
+        // 3D Neon Cyan Tech Background Boards
+        const boardCount = 4;
+        const boardsArray = [];
+        
+        for(let i = 0; i < boardCount; i++) {
+            const geometry = new THREE.BoxGeometry(
+                Math.random() * 15 + 10, 
+                Math.random() * 10 + 5, 
+                Math.random() * 5 + 2
+            );
+            const wireframe = new THREE.EdgesGeometry(geometry);
+            const material = new THREE.LineBasicMaterial({ 
+                color: 0x06b6d4, 
+                transparent: true,
+                opacity: 0.15 
+            });
+            const lineBox = new THREE.LineSegments(wireframe, material);
+            
+            lineBox.position.set(
+                (Math.random() - 0.5) * 60,
+                (Math.random() - 0.5) * 40,
+                Math.random() * -40 - 20
+            );
+            
+            spaceGroup.add(lineBox);
+            boardsArray.push(lineBox);
+        }
+
+        const light = new THREE.AmbientLight(0xffffff, 0.5);
+        scene.add(light);
+
+        function animateLoop() {
+            requestAnimationFrame(animateLoop);
+
+            spaceGroup.rotation.y += 0.0008;
+            spaceGroup.rotation.x += 0.0003;
+
+            boardsArray.forEach((board, idx) => {
+                board.rotation.x += 0.002 * (idx + 1) * 0.5;
+                board.rotation.y += 0.001 * (idx + 1) * 0.5;
+                board.position.y += Math.sin(Date.now() * 0.001 + idx) * 0.005;
+            });
+
+            renderer.render(scene, camera);
+        }
+        animateLoop();
+
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        // -----------------------------------------------------
+        // 3. SLIDE CORE NAVIGATION ENGINE CONTROL LOGIC
+        // -----------------------------------------------------
+        let currentSlide = 1;
+        const totalSlides = 6;
+
+        function updateNavigationUI() {
+            for (let i = 1; i <= totalSlides; i++) {
+                document.getElementById(`slide-${i}`).classList.remove('active');
+            }
+            document.getElementById(`slide-${currentSlide}`).classList.add('active');
+
+            document.getElementById('prev-btn').disabled = (currentSlide === 1);
+            document.getElementById('next-btn').disabled = (currentSlide === totalSlides);
+            
+            document.getElementById('current-slide-num').innerText = currentSlide;
+        }
+
+        function goToSlide(slideNumber) {
+            currentSlide = slideNumber;
+            updateNavigationUI();
+        }
+
+        function moveSlide(direction) {
+            let target = currentSlide + direction;
+            if (target >= 1 && target <= totalSlides) {
+                currentSlide = target;
+                updateNavigationUI();
+            }
+        }
+
+        function toggleLetter(element) {
+            element.classList.toggle('open');
+            const icon = element.querySelector('i');
+            if(element.classList.contains('open')) {
+                icon.className = "fa-solid fa-envelope-open";
+            } else {
+                icon.className = "fa-solid fa-envelope";
+            }
+        }
+
+        updateNavigationUI();
     </script>
 </body>
 </html>

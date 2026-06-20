@@ -260,13 +260,13 @@
 
         /* Interactive Metadata Board Block */
         .info-footer-block {
-            border: 1px dashed #581c87;
-            background: rgba(88, 28, 135, 0.05);
+            border: 1px dashed #991b1b;
+            background: rgba(153, 27, 27, 0.05);
             padding: 12px 25px;
             border-radius: 10px;
             font-size: 12px;
             font-family: 'Azeret Mono', monospace;
-            color: #c084fc;
+            color: #f87171;
             margin-top: 15px;
             text-align: left;
             line-height: 1.5;
@@ -329,8 +329,7 @@
                     Press the terminal initialization switch above to run the sequence matrix. This compiles the tracking nodes and synchronizes the playback speed.
                 </p>
                 <div class="info-footer-block">
-                    <div><i class="fa-solid fa-graduation-cap"></i> <strong>Instructor Legacy:</strong> IT Teacher Core Systems</div>
-                    <div><i class="fa-solid fa-industry"></i> <strong>Operations Node:</strong> Energy Development Corporation Architecture (EDC)</div>
+                    <div><i class="fa-solid fa-history"></i> <strong>The Journey:</strong> IT Teacher (Pre-Birth Era) &rarr; El Seif Operations &rarr; EDC Architecture</div>
                 </div>
             </div>
         </div>
@@ -365,29 +364,28 @@
             "Assets/Dad5.jpeg", "Assets/Dad6.jpeg", "Assets/Dad7.jpeg", "Assets/Dad8.jpeg"
         ];
 
-        // Compilation of 20 distinct programmatic slide entries
+        // Compilation of 20 distinct programmatic slide entries matching his career history
         const slideNarrativeMatrix = [
-            { text: "Before you managed systems or specialized in infrastructure, you taught the fundamentals. Having an IT teacher as a dad means growing up seeing how technology actually functions from the source code up." },
+            { text: "Long before I was even born, you were already building foundations. Working as an IT teacher, you spent your days breaking down complex systems and sharing knowledge with others." },
             { text: "IMAGE_NODE" }, // Random Assignment Node Placeholder
-            { text: "Your work at EDC or across complex grid operations shows what it takes to manage massive structural engines. You keep systems online under pressure, balancing mechanics flawlessly." },
+            { text: "That teacher's patience and technical mindset didn't go away when you left the classroom—it became a fundamental part of who you are as a father." },
             { text: "IMAGE_NODE" },
-            { text: "But the most impressive architecture you ever built wasn't code or power systems—it was our home. Your constant support and clear logic are the strongest baselines we have." },
+            { text: "Your journey then took you to El Seif, managing heavy coordination and demanding industrial landscapes, proving you could keep major structures running smoothly under pressure." },
             { text: "IMAGE_NODE" },
-            { text: "Whenever things feel bugged out or hard to compile, you show up with the ultimate fix. You break down big problems step-by-step until the solution makes total sense." },
+            { text: "And now, watching you apply those years of deep expertise at EDC shows what it truly means to handle critical energy infrastructure and elite power architecture." },
             { text: "IMAGE_NODE" },
-            { text: "From explaining complex technology tracks to working through challenges, you always show total patience. You don't just solve the problem; you teach us how to stand on our own." },
+            { text: "But out of all the massive operational systems you have managed throughout your career, the absolute best project you ever built was our family framework." },
             { text: "IMAGE_NODE" },
-            { text: "Your analytical mindset shapes how we build projects, code files, and figure out the world. You gave us the engineering tools to look at everything with curiosity." },
+            { text: "You brought the clarity of a tech teacher, the resilience of your El Seif days, and the powerful dedication of your EDC work straight into our home." },
             { text: "IMAGE_NODE" },
-            { text: "Thank you for never shortcuts on lines of support. Even when you are completely wiped out from debugging major systems at work, you always make full time for the family." },
+            { text: "Whenever things feel completely bugged out or hard to navigate, you step in with a perfect diagnostic. You help solve big problems step-by-step until everything clears up." },
             { text: "IMAGE_NODE" },
-            { text: "The dedication you put into keeping things running perfectly behind the scenes doesn't go unnoticed. You are the structural anchor that holds this entire framework together." },
-            { text: "Every day, you prove that being a legendary leader in technology matches perfectly with being an incredibly loving, present, and compassionate father." },
-            { text: "We have compiled your historical data, and the metrics are off the charts. Your patience, design, logic, and care register a permanent 100% capacity rating across every category." },
-            { text: "This entire build is designed directly from scratch to say thank you for the logic files you install in us every single day. We look up to your configuration matrix." },
-            { text: "No matter where our future code routes lead or what systems we end up developing, the foundational tracks you built will guide us seamlessly." },
-            { text: "Systems are checked, arrays are fully verified, and the conclusion is completely definitive: you are the most elite dad in the entire operational environment." },
-            { text: "Happy Father's Day to our absolute hero, our favourite IT genius, and the ultimate foundation. The system is complete, and our love loops infinitely!" }
+            { text: "Thank you for never taking shortcuts when supporting us. Even when you are wiped out from optimizing massive arrays or debugging critical data blocks at work, you always make full time for us." },
+            { text: "The incredible dedication you show behind the scenes to keep our lives running smoothly doesn't go unnoticed. You are our structural anchor." },
+            { text: "Every single day, you prove that being a legendary master of technology and infrastructure goes perfectly hand-in-hand with being an immensely present, loving dad." },
+            { text: "We have fully compiled your tracking scores, and the output parameters are absolute: your patience, guidance, and logic register a permanent 100% capacity rating." },
+            { text: "This entire slideshow was coded completely from scratch to say thank you for the life code you continue to install in us. We look up to your configuration matrix." },
+            { text: "Happy Father's Day to our hero, our favorite IT genius, and the ultimate foundation. The layout is fully verified, and our love loops infinitely!" }
         ];
 
         // Distribute the image assets into the design layout arrays uniformly
@@ -418,7 +416,6 @@
         }
 
         function startAutomatedBoot() {
-            // Trigger audio stream initiation safely via initial interaction wrapper
             audioContext.play().catch(() => console.log("Audio node safely queued for playback matrix."));
             
             setTimeout(() => {
@@ -457,7 +454,6 @@
             let currentVolume = 1.0;
             audioContext.playbackRate = 1.0;
 
-            // Step 1: Slow down playback speed and fade out audio linearly
             volumeInterval = setInterval(() => {
                 if (currentVolume > 0.05) {
                     currentVolume -= 0.05;
@@ -469,16 +465,13 @@
                     clearInterval(volumeInterval);
                     audioContext.pause();
                     
-                    // Trigger Simulated Rewind Sound Effect Waveform
                     playSyntheticRewindFX(() => {
-                        // Step 2: Initialize presentation layout space
                         currentDeckIndex = 0;
                         renderActiveDeckFrame();
                         switchSlideVisibility('presentation-deck');
                         document.getElementById('nav-control-panel').style.display = 'flex';
 
-                        // Step 3: Spin-up music speed and restore sound levels
-                        audioContext.currentTime = 0; // Reset tracking pointer
+                        audioContext.currentTime = 0; 
                         audioContext.play();
                         audioContext.volume = 0.05;
                         audioContext.playbackRate = 0.4;
@@ -501,7 +494,6 @@
             }, 40);
         }
 
-        // Programmatic sound generation for the rewind matrix effect
         function playSyntheticRewindFX(callback) {
             try {
                 const AudioCtx = window.AudioContext || window.webkitAudioContext;
@@ -513,7 +505,6 @@
                 
                 osc.type = 'sawtooth';
                 osc.frequency.setValueAtTime(120, ctx.currentTime);
-                // Sweep frequency quickly upwards to simulate tape tape rewinding
                 osc.frequency.exponentialRampToValueAtTime(1800, ctx.currentTime + 0.4);
                 
                 gain.gain.setValueAtTime(0.3, ctx.currentTime);
@@ -588,7 +579,6 @@
         const spaceGroup = new THREE.Group();
         scene.add(spaceGroup);
 
-        // Maroon Red Particle Array Generation
         const totalParticles = 900;
         const particleGeometry = new THREE.BufferGeometry();
         const positions = new Float32Array(totalParticles * 3);
@@ -599,10 +589,9 @@
             positions[i + 1] = (Math.random() - 0.5) * 160;
             positions[i + 2] = (Math.random() - 0.5) * 120;
 
-            // Deep Maroon Red Vector Tones
-            colors[i] = Math.random() * 0.3 + 0.5; // Red channel focus
-            colors[i + 1] = 0.05;                  // Suppressed Green
-            colors[i + 2] = 0.1;                   // Suppressed Blue
+            colors[i] = Math.random() * 0.3 + 0.5; 
+            colors[i + 1] = 0.05;                  
+            colors[i + 2] = 0.1;                   
         }
 
         particleGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
@@ -619,7 +608,6 @@
         const particleCloud = new THREE.Points(particleGeometry, particleMaterial);
         spaceGroup.add(particleCloud);
 
-        // Maroon 3D Geometric Pillars
         const structuralPillars = [];
         const pillarCount = 6;
 
@@ -627,7 +615,7 @@
             const geom = new THREE.CylinderGeometry(2, 2, Math.random() * 25 + 15, 4, 1, true);
             const wireframe = new THREE.EdgesGeometry(geom);
             const mat = new THREE.LineBasicMaterial({
-                color: 0x7f1d1d, // Deep maroon structural wireframe lines
+                color: 0x7f1d1d, 
                 transparent: true,
                 opacity: 0.25
             });
@@ -663,7 +651,6 @@
             renderer.setSize(window.innerWidth, window.innerHeight);
         });
 
-        // Initialize display configuration state on entry
         switchSlideVisibility('boot-1');
     </script>
 </body>
